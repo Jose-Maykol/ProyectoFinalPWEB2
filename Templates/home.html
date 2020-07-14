@@ -8,18 +8,18 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Home</title>
-	<link rel="stylesheet" href="{% static 'css/normalize.css'%}">
-	<link rel="stylesheet" href="{% static 'css/sweetalert2.css'%}">
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/sweetalert2.css' %}">
 	<link rel="stylesheet" href="{% static 'css/material.min.css'%}">
-	<link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css'%}">
-	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.css'%}">
-	<link rel="stylesheet" href="{% static 'css/main.css'%}">
-	<script src="{% static '//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'%}"></script>
-	<script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
-	<script src="{% static 'js/material.min.js'%}" ></script>
-	<script src="{% static 'js/sweetalert2.min.js'%}" ></script>
-	<script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js'%}" ></script>
-	<script src="{% static 'js/main.js'%}" ></script>
+	<link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<script src="{% static '//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js' %}"></script>
+	<script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.11.2.min.js' %}"><\/script>')</script>
+	<script src="{% static 'js/material.min.js' %}" ></script>
+	<script src="{% static 'js/sweetalert2.min.js' %}" ></script>
+	<script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}" ></script>
+	<script src="{% static 'js/main.js' %}" ></script>
 </head>
 <body>
 	<!-- Notifications area -->
@@ -108,7 +108,7 @@
 					<li class="text-condensedLight noLink" ><small>User Name</small></li>
 					<li class="noLink">
 						<figure>
-							<img src="assets/img/avatar-male.png" alt="Avatar" class="img-responsive">
+							<img src="{% static 'assets/img/avatar-male.png' %}" alt="Avatar" class="img-responsive">
 						</figure>
 					</li>
 				</ul>
@@ -124,7 +124,7 @@
 			</div>
 			<figure class="full-width" style="height: 77px;">
 				<div class="navLateral-body-cl">
-					<img src="assets/img/avatar-male.png" alt="Avatar" class="img-responsive">
+					<img src="{% static 'assets/img/avatar-male.png' %}" alt="Avatar" class="img-responsive">
 				</div>
 				<figcaption class="navLateral-body-cr hide-on-tablet">
 					<span>
@@ -139,7 +139,7 @@
 			<nav class="full-width">
 				<ul class="full-width list-unstyle menu-principal">
 					<li class="full-width">
-						<a href="home.html" class="full-width">
+						<a href="home" class="full-width">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-view-dashboard"></i>
 							</div>
@@ -150,7 +150,7 @@
 					</li>
 					<li class="full-width divider-menu-h"></li>
 					<li class="full-width">
-						<a href="#!" class="full-width btn-subMenu">
+						<a href="#" class="full-width btn-subMenu">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-case"></i>
 							</div>
@@ -161,7 +161,7 @@
 						</a>
 						<ul class="full-width menu-principal sub-menu-options">
 							<li class="full-width">
-								<a href="company.html" class="full-width">
+								<a href="company" class="full-width">
 									<div class="navLateral-body-cl">
 										<i class="zmdi zmdi-balance"></i>
 									</div>
@@ -171,7 +171,7 @@
 								</a>
 							</li>
 							<li class="full-width">
-								<a href="providers.html" class="full-width">
+								<a href="providers" class="full-width">
 									<div class="navLateral-body-cl">
 										<i class="zmdi zmdi-truck"></i>
 									</div>
@@ -181,7 +181,7 @@
 								</a>
 							</li>
 							<li class="full-width">
-								<a href="payments.html" class="full-width">
+								<a href="payments" class="full-width">
 									<div class="navLateral-body-cl">
 										<i class="zmdi zmdi-card"></i>
 									</div>
@@ -191,7 +191,7 @@
 								</a>
 							</li>
 							<li class="full-width">
-								<a href="categories.html" class="full-width">
+								<a href="categories" class="full-width">
 									<div class="navLateral-body-cl">
 										<i class="zmdi zmdi-label"></i>
 									</div>
@@ -204,7 +204,7 @@
 					</li>
 					<li class="full-width divider-menu-h"></li>
 					<li class="full-width">
-						<a href="#!" class="full-width btn-subMenu">
+						<a href="#" class="full-width btn-subMenu">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-face"></i>
 							</div>
@@ -215,7 +215,7 @@
 						</a>
 						<ul class="full-width menu-principal sub-menu-options">
 							<li class="full-width">
-								<a href="admin.html" class="full-width">
+								<a href="admin" class="full-width">
 									<div class="navLateral-body-cl">
 										<i class="zmdi zmdi-account"></i>
 									</div>
@@ -225,7 +225,7 @@
 								</a>
 							</li>
 							<li class="full-width">
-								<a href="client.html" class="full-width">
+								<a href="client" class="full-width">
 									<div class="navLateral-body-cl">
 										<i class="zmdi zmdi-accounts"></i>
 									</div>
@@ -238,7 +238,7 @@
 					</li>
 					<li class="full-width divider-menu-h"></li>
 					<li class="full-width">
-						<a href="products.html" class="full-width">
+						<a href="products" class="full-width">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-washing-machine"></i>
 							</div>
@@ -249,7 +249,7 @@
 					</li>
 					<li class="full-width divider-menu-h"></li>
 					<li class="full-width">
-						<a href="sales.html" class="full-width">
+						<a href="sales" class="full-width">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-shopping-cart"></i>
 							</div>
@@ -260,7 +260,7 @@
 					</li>
 					<li class="full-width divider-menu-h"></li>
 					<li class="full-width">
-						<a href="inventory.html" class="full-width">
+						<a href="inventory" class="full-width">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-store"></i>
 							</div>
