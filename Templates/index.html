@@ -15,12 +15,12 @@
 	<link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css'%}">
 	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.css'%}">
 	<link rel="stylesheet" href="{% static 'css/main.css'%}">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
-	<script src="js/material.min.js" ></script>
-	<script src="js/sweetalert2.min.js" ></script>
-	<script src="js/jquery.mCustomScrollbar.concat.min.js" ></script>
-	<script src="js/main.js" ></script>
+	<script src="{% static '//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'%}"></script>
+	<script>window.jQuery || document.write('<script src="{% static "js/jquery-1.11.2.min.js"%}"><\/script>')</script>
+	<script src="{% static 'js/material.min.js'%}" ></script>
+	<script src="{% static 'js/sweetalert2.min.js'%}" ></script>
+	<script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js'%}" ></script>
+	<script src="{% static 'js/main.js'%}" ></script>
 </head>
 <body class="cover">
 	<div class="container-login">
@@ -28,18 +28,18 @@
 			<i class="zmdi zmdi-account-circle"></i>
 		</p>
 		<p class="text-center text-condensedLight">Sign in with your Account</p>
-		<form>
+		<form action="login" method="post">
+			{% csrf_token %}
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			    <input class="mdl-textfield__input" type="text" id="userName">
-			    <label class="mdl-textfield__label" for="userName">User Name</label>
+			    <input class="mdl-textfield__input" type="text" name="username" id="username">
+			    <label class="mdl-textfield__label" >Nombre de usuario</label>
 			</div>
 			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-			    <input class="mdl-textfield__input" type="password" id="pass">
-			    <label class="mdl-textfield__label" for="pass">Password</label>
+			    <input class="mdl-textfield__input" type="password" name="password" id="password">
+			    <label class="mdl-textfield__label" > Contraseña</label>
 			</div>
-			<button id="SingIn" class="mdl-button mdl-js-button mdl-js-ripple-effect" style="color: #3F51B5; float:right;">
-				Sign in <i class="zmdi zmdi-mail-send"></i>
-			</button>
+			<input  type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect" value="Ingresar" style="color: #3F51B5; float:right;">
+			<p class="text-center text-condensedLight"><a href="register" style="color: #3F51B5; float:center;">¿No tienes cuenta ? Registrate</a></p>
 		</form>
 	</div>
 </body>
