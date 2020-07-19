@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.css' %}">
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.11.2.min.js' %}"><\/script>')</script>
+	<script>window.jQuery || document.write("<script src='{% static 'js/jquery-1.11.2.min.js' %}'><\/script>")</script>
 	<script src="{% static 'js/material.min.js' %}" ></script>
 	<script src="{% static 'js/sweetalert2.min.js' %}" ></script>
 	<script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}" ></script>
@@ -109,7 +109,7 @@
 					<li class="text-condensedLight noLink" ><small>User Name</small></li>
 					<li class="noLink">
 						<figure>
-							<img src="assets/img/avatar-male.png" alt="Avatar" class="img-responsive">
+							<img src="{% static 'assets/img/avatar-male.png' %}" alt="Avatar" class="img-responsive">
 						</figure>
 					</li>
 				</ul>
