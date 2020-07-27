@@ -98,5 +98,93 @@ class Inventarios(models.Model):
 
 
 
+class Locaciones(models.Model):
+
+    id_loc = models.AutoField(primary_key = True)
+    cod_loc = models.CharField(max_length = 15, verbose_name = "Codigo de la localizacion")
+    desc_loc = models.CharField(max_length = 150, null = True, verbose_name = "Descripción de la localizacion")
+    isla = models.CharField(max_length = 15, null = True, verbose_name = "Codigo de isla de almacen")
+    seccion = models.CharField(max_length = 15, null = True, verbose_name = "Codigo de sección")
+    nivel = models.CharField(max_length = 15, null = True, verbose_name = "Codigo de nivel")
+    contenedor = models.CharField(max_length = 15, null = True, verbose_name = "Codigo de contenedor")
+    capacidad = models.IntegerField( null = True, verbose_name = "Capacidad del contenedor")
+
+    class Meta:
+        verbose_name = 'Locacion'
+        verbose_name_plural = 'Locaciones'
+        ordering = ['cod_loc']
+
+    def __str__(self):
+        return self.cod_loc
+
+
+
+class Historia_mov(models.Model):
+
+    #day  = timezone.now()
+    #hour = timezone.now()
+    TIPO = (('ENTRADA','ENTRADA'),('SALIDA','SALIDA'))
+
+    id_inv_hist = models.AutoField(primary_key = True)
+    tipo_mov = models.CharField(max_length = 25, blank = False, choices = TIPO, verbose_name = "Tipo de movimiento")
+    cant_mov = models.IntegerField(blank = False, verbose_name = "Cantidad de movimiento")
+    fecha_mov = models.DateField(auto_now = True, verbose_name = "Fecha de movimiento")
+    hora_mov = models.DateTimeField(auto_now = True, verbose_name = "Hora de movimiento")
+    #id_producto = model|
+    #id_empleado =
+    lote = models.CharField(max_length = 255, null = True, verbose_name = "Código del lote del producto")
+    caducidad = models.DateField(auto_now = False, verbose_name = "Fecha de caducidad")
+    #id_loc = 
+
+    class Meta:
+        verbose_name = 'Historia_mov'
+        verbose_name_plural = 'Historias_mov'
+        ordering = ['fecha_mov']
+
+    def __str__(self):
+        return self.fecha_mov
+
+
+
+class Ordenes_compra(models.Model):
+
+    id_orden_compra = models.AutoField(primary_key = True)
+    numero_compra = models.CharField(max_length = 255, null = True, verbose_name = "Numero de la compra")
+    #proveedor_id
+    #empleado_id
+    descripción_compra = models.CharField(max_length = 255, blank = True, null = True, verbose_name = "Descripcion de la compra")
+    fecha_orden = models.DateField(auto_now = False, verbose_name = "Fecha de orden")
+    #metodoenvio_id
+    fecha_embarque = models.DateField(auto_now = False, verbose_name = "Fecha de embarque")
+    fecha_requerida = models.DateField(auto_now = False, verbose_name = "Fecha requerida")
+    fecha_promesa = models.DateField(auto_now = False, verbose_name = "Fecha promesa")
+
+    class Meta:
+        verbose_name = 'Orden_compra'
+        verbose_name_plural = 'Ordenes_compra'
+        ordering = ['id_orden_compra']
+
+    def __str__(self):
+        return self.id_orden_compra
+
+
+
+class Detalle_compras(models.Model):
+    
+    id_detalle_compra = models.AutoField(primary_key = True)
+    #producto_id
+    #ordencompra_id
+    cantidad_orden = models.IntegerField(verbose_name = "Cantidad de orden")
+    cantidad_recibida = models.IntegerField(verbose_name = "Cantidad recibida")
+
+    class Meta:
+        verbose_name = 'Detalle_compra'
+        verbose_name_plural = 'Detalle_compras'
+        ordering = ['id_detalle_compra']
+
+    def __str__(self):
+        return self.id_detalle_compra
+
+
 
 
