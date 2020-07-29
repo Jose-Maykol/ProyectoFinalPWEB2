@@ -46,10 +46,27 @@ class Entry(models.Model):
         return date
     
     def save(self):
-        the_product = Entry.objects.all()
-        for product in the_product:
-            I = Inventory(product= product, provider= product.provider, cant= product.cant, name_product= str(product),entry_date= product.created_at)
+        super(Entry, self).save()
+        #Inventory.objects.all().delete()
+        create_inventory = False
+        for i in Inventory.objects.all():
+            if str(self.product.name) == str(i.name_product): 
+                create_inventory = False
+                print(i.name_product)
+                print(str(self.product.name))
+                I = Inventory.objects.get(id = i.id)
+                print(I)
+                I.cant = I.cant + self.cant
+                I.save()
+                break
+            if str(self.product.name) != str(i.name_product) and i.id: 
+                create_inventory = True
+        if create_inventory == True: 
+            I = Inventory(product= self, provider= self.provider, cant= self.cant, name_product= str(self.product.name),entry_date= self.created_at)
             I.save()
+
+
+
     class Meta:
         verbose_name = "Entrada"
         verbose_name_plural =  "Entradas"
@@ -76,5 +93,7 @@ class Inventory(models.Model):
     cant = models.PositiveIntegerField(null= True, verbose_name= "Cantidad")
     name_product =  models.CharField(max_length= 100, null= True, verbose_name= "Producto")
     entry_date = models.DateTimeField(auto_now_add=True, null= True,verbose_name= "Fecha de entrada")
-  
+    
+    def __str__(self):
+        return f'{self.name_product} {self.entry_date}'
 
