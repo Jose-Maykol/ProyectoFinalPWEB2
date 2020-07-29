@@ -52,10 +52,7 @@ class Entry(models.Model):
         for i in Inventory.objects.all():
             if str(self.product.name) == str(i.name_product): 
                 create_inventory = False
-                print(i.name_product)
-                print(str(self.product.name))
                 I = Inventory.objects.get(id = i.id)
-                print(I)
                 I.cant = I.cant + self.cant
                 I.save()
                 break
@@ -65,26 +62,9 @@ class Entry(models.Model):
             I = Inventory(product= self, provider= self.provider, cant= self.cant, name_product= str(self.product.name),entry_date= self.created_at)
             I.save()
 
-
-
     class Meta:
         verbose_name = "Entrada"
         verbose_name_plural =  "Entradas"
-
-class Sale(models.Model):
-
-    user_name =  models.ForeignKey(User,on_delete= models.CASCADE, verbose_name= "Nombre del cliente", default= None) 
-    product = models.ForeignKey(Product, on_delete= models.CASCADE, verbose_name= "Producto", default= None)
-    cant =  models.PositiveIntegerField(null= True, verbose_name= "Cantidad")
-    cash = models.FloatField(null= True, verbose_name= "Precio total")
-    created_at = models.DateTimeField(auto_now_add=True, null= True,verbose_name= "Fecha de venta")
-
-    def __str__(self):
-        date = str(self.created_at)
-        return date
-    class Meta:
-        verbose_name = "Salida"
-        verbose_name_plural =  "Salidas"
 
 class Inventory(models.Model):
 
@@ -96,4 +76,32 @@ class Inventory(models.Model):
     
     def __str__(self):
         return f'{self.name_product} {self.entry_date}'
+
+
+class Sale(models.Model):
+
+    user_name =  models.ForeignKey(User,on_delete= models.CASCADE, verbose_name= "Nombre del cliente", default= None) 
+    product = models.ForeignKey(Inventory, on_delete= models.CASCADE, verbose_name= "Producto", default= None)
+    cant =  models.PositiveIntegerField(null= True, verbose_name= "Cantidad")
+    cash = models.FloatField(null= True, verbose_name= "Precio total")
+    created_at = models.DateTimeField(auto_now_add=True, null= True,verbose_name= "Fecha de venta")
+
+    def __str__(self):
+        date = str(self.created_at)
+        return date
+    
+    def save(self):
+        super(Sale, self).save()
+        #Inventory.objects.all().delete()
+        create_inventory = False
+        str(self.product)
+        for i in Inventory.objects.all():
+            if str(self.product) == str(i):
+                I = Inventory.objects.get(id = i.id)
+                I.cant = I.cant - self.cant
+                I.save()
+    class Meta:
+        verbose_name = "Salida"
+        verbose_name_plural =  "Salidas"
+    
 
