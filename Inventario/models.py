@@ -119,7 +119,7 @@ class Historia_mov(models.Model):
     fecha_mov = models.DateField(auto_now = True, verbose_name = "Fecha de movimiento")
     hora_mov = models.DateTimeField(auto_now = True, verbose_name = "Hora de movimiento")
     id_producto = models.OneToOneField(Productos, on_delete = models.CASCADE, default = False) #
-    #id_empleado =
+    id_empleado = models.OneToOneField(User, on_delete = models.CASCADE, default = False)
     lote = models.CharField(max_length = 255,blank = True, null = True, verbose_name = "Código del lote del producto")
     caducidad = models.DateField(auto_now = False, verbose_name = "Fecha de caducidad")
     id_loc =  models.OneToOneField(Locaciones, on_delete = models.CASCADE, default = False) #
@@ -136,7 +136,7 @@ class Ordenes_compra(models.Model):
     id_orden_compra = models.AutoField( primary_key = True)
     #numero_compra = models.CharField( max_length = 255, blank = False, verbose_name = "Numero de la compra")
     proveedor_id = models.OneToOneField(Proveedores, on_delete = models.CASCADE, default = False) #
-    #empleado_id
+    empleado_id = models.OneToOneField(User, on_delete = models.CASCADE, default = False)
     descripción_compra = models.CharField(max_length = 255, blank = True, null = True, verbose_name = "Descripcion de la compra")
     fecha_orden = models.DateField(auto_now = False, blank = True, null = True, verbose_name = "Fecha de orden")
     metodoenvio_id = models.OneToOneField(Metodos_envio, on_delete = models.CASCADE, default = False) #
