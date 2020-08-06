@@ -48,13 +48,15 @@ class Entry(models.Model):
     def save(self):
         if self.id:
             old = Entry.objects.get(pk = self.id)
-            i = Inventory.objects.get(name_product = self.product.name)
+            i = Inventory.objects.get(name_product = old.product.name)
             print(self.cant)
             print(i.cant)
             print(old.cant)
             i.cant = i.cant - old.cant
             print(i.cant)
             i.save()
+
+
         super(Entry, self).save()
         #Entry.objects.all().delete()
         """ create_inventory = False
@@ -105,19 +107,11 @@ class Sale(models.Model):
     def save(self):
         if self.id:
             old = Sale.objects.get(pk = self.id)
-            i = Inventory.objects.get(name_product = self.product.name_product)
-            print(self.cant)
-            print(old.cant)
-            i.cant = i.cant + old.cant
-            print(self.cant)    
-            i.save()    
-        super(Sale, self).save()
-        #Inventory.objects.all().delete()   
-        """ for i in Inventory.objects.all():
-            if str(self.product) == str(i):
-                I = Inventory.objects.get(id = i.id)
-                I.cant = I.cant - self.cant
-                I.save() """
+            i = Inventory.objects.get(name_product = old.product.name_product)
+            i.cant = i.cant + old.cant 
+            i.save()   
+        super(Sale, self).save()   
+
     @property            
     def total_price(self):
         total_price = 0
@@ -126,7 +120,6 @@ class Sale(models.Model):
                 I = Inventory.objects.get(id = i.id)
                 total_price = I.price_product* self.cant
         return total_price
-
 
     class Meta:
         verbose_name = "Salida"
@@ -161,12 +154,11 @@ def post_save_entry(sender, instance, **kwargs):
             I.cant = I.cant + instance.cant
             I.save()
             break
-        if str(instance.product.name) != str(i.name_product) and i.id: 
+        if str(instance.product.name) != str(i.name_product): 
             create_inventory = True
     if create_inventory == True: 
         I = Inventory(product= instance, price_product = instance.product.price, cant = instance.cant, name_product = str(instance.product.name),entry_date = instance.created_at)
         I.save()
-    #Inventory.objects.all().delete()
      
 @receiver(post_save, sender = Sale)
 def post_save_sale(sender, instance, **kwargs):
