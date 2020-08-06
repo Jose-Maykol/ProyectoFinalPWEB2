@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 # Create your models here.
 
 class Provider(models.Model):
@@ -35,7 +37,7 @@ class Product(models.Model):
 
 class Entry(models.Model):
 
-    product = models.ForeignKey(Product, on_delete= models.CASCADE, verbose_name= "Producto", default= None)
+    product = models.ForeignKey(Product, on_delete = models.SET_DEFAULT, verbose_name= "Producto", default= None)
     cant = models.PositiveIntegerField(null= True, verbose_name= "Cantidad")
     created_at = models.DateTimeField(auto_now_add=True, null= True, verbose_name= "Fecha de movimiento")
     
@@ -70,24 +72,14 @@ class Entry(models.Model):
             I = Inventory(product = self, price_product = self.product.price, cant = self.cant, name_product = str(self.product.name),entry_date = self.created_at)
             I.save()
         #Inventory.objects.all().delete()
-    def delete(self): 
-        for i in Inventory.objects.all():
-            if str(self.product.name) == str(i.name_product): 
-                create_inventory = False
-                I = Inventory.objects.get(id = i.id)
-                I.cant = I.cant - self.cant
-                I.save()
-                break
-        super(Entry, self).delete()
         
-
     class Meta:
         verbose_name = "Entrada"
         verbose_name_plural =  "Entradas"
 
 class Inventory(models.Model):
 
-    product = models.ForeignKey(Entry, on_delete= models.CASCADE, default= None)
+    product = models.ForeignKey(Entry, on_delete= models.SET_DEFAULT, default= None)
     cant = models.PositiveIntegerField(null= True, verbose_name= "Cantidad")
     name_product =  models.CharField(max_length= 100, null= True, verbose_name= "Producto")
     price_product = models.PositiveIntegerField(null= True, verbose_name = "Precio del producto")
@@ -98,8 +90,8 @@ class Inventory(models.Model):
 
 class Sale(models.Model):
 
-    user_name =  models.ForeignKey(User,on_delete= models.CASCADE, verbose_name= "Nombre del cliente", default= None) 
-    product = models.ForeignKey(Inventory, on_delete= models.CASCADE, verbose_name= "Producto", default= None)
+    user_name =  models.ForeignKey(User,on_delete= models.SET_DEFAULT, verbose_name= "Nombre del cliente", default= None) 
+    product = models.ForeignKey(Inventory, on_delete= models.SET_DEFAULT, verbose_name= "Producto", default= None)
     cant =  models.PositiveIntegerField(null= True, verbose_name= "Cantidad")
     created_at = models.DateTimeField(auto_now_add=True, null= True,verbose_name= "Fecha de venta")
 
@@ -135,4 +127,10 @@ class Sale(models.Model):
         verbose_name = "Salida"
         verbose_name_plural =  "Salidas"
     
-
+@receiver(post_delete, sender = Entry)
+def delete_entry(sender, instance, **kwargs): 
+    print("aqui llego >:v   ")
+    removed = Inventory.objects.get(name_product = instance.product.name)
+    print(removed)
+    removed.cant = removed.cant - instance.cant
+    removed.save()
