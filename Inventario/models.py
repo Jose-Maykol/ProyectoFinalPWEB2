@@ -134,3 +134,11 @@ def delete_entry(sender, instance, **kwargs):
     print(removed)
     removed.cant = removed.cant - instance.cant
     removed.save()
+
+@receiver(post_delete, sender = Sale)
+def delete_sale(sender, instance, **kwargs):
+    print(" :v ")
+    removed = Inventory.objects.get(name_product = instance.product.name_product)
+    print(removed)
+    removed.cant = removed.cant + instance.cant
+    removed.save()
