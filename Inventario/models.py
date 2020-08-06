@@ -46,6 +46,12 @@ class Entry(models.Model):
         return date
     
     def save(self):
+        if self.id:
+            old = Entry.objects.get(pk = self.id)
+            print(self.cant)
+            print(old.cant)
+            self.cant = self.cant - old.cant
+            print(self.cant)
         super(Entry, self).save()
         #Inventory.objects.all().delete()
         create_inventory = False
@@ -81,7 +87,6 @@ class Inventory(models.Model):
     def __str__(self):
         return self.name_product
 
-
 class Sale(models.Model):
 
     user_name =  models.ForeignKey(User,on_delete= models.CASCADE, verbose_name= "Nombre del cliente", default= None) 
@@ -95,6 +100,12 @@ class Sale(models.Model):
         return date
     
     def save(self):
+        if self.id:
+            old = Sale.objects.get(pk = self.id)
+            print(self.cant)
+            print(old.cant)
+            self.cant = self.cant - old.cant
+            print(self.cant)        
         super(Sale, self).save()
         #Inventory.objects.all().delete()   
         for i in Inventory.objects.all():
