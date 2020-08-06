@@ -61,6 +61,10 @@ class Entry(models.Model):
         if create_inventory == True: 
             I = Inventory(product= self, provider= self.provider, cant= self.cant, name_product= str(self.product.name),entry_date= self.created_at)
             I.save()
+        I = Inventory.objects.all()
+        if not I.exists():
+            I = Inventory(product= self, provider= self.provider, cant= self.cant, name_product= str(self.product.name),entry_date= self.created_at)
+            I.save()
 
     class Meta:
         verbose_name = "Entrada"
@@ -75,7 +79,7 @@ class Inventory(models.Model):
     entry_date = models.DateTimeField(auto_now_add=True, null= True,verbose_name= "Fecha de entrada")
     
     def __str__(self):
-        return f'{self.name_product} {self.entry_date}'
+        return self.name_product
 
 
 class Sale(models.Model):
@@ -92,9 +96,7 @@ class Sale(models.Model):
     
     def save(self):
         super(Sale, self).save()
-        #Inventory.objects.all().delete()
-        create_inventory = False
-        str(self.product)
+        #Inventory.objects.all().delete()   
         for i in Inventory.objects.all():
             if str(self.product) == str(i):
                 I = Inventory.objects.get(id = i.id)
