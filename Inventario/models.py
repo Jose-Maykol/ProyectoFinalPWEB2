@@ -55,28 +55,7 @@ class Entry(models.Model):
             i.cant = i.cant - old.cant
             print(i.cant)
             i.save()
-
-
         super(Entry, self).save()
-        #Entry.objects.all().delete()
-        """ create_inventory = False
-        for i in Inventory.objects.all():
-            if str(self.product.name) == str(i.name_product): 
-                create_inventory = False
-                I = Inventory.objects.get(id = i.id)
-                I.cant = I.cant + self.cant
-                I.save()
-                break
-            if str(self.product.name) != str(i.name_product) and i.id: 
-                create_inventory = True
-        if create_inventory == True: 
-            I = Inventory(product= self, price_product = self.product.price, cant = self.cant, name_product = str(self.product.name),entry_date = self.created_at)
-            I.save()
-        I = Inventory.objects.all()
-        if not I.exists():
-            I = Inventory(product = self, price_product = self.product.price, cant = self.cant, name_product = str(self.product.name),entry_date = self.created_at)
-            I.save() """
-        #Inventory.objects.all().delete() """
         
     class Meta:
         verbose_name = "Entrada"
