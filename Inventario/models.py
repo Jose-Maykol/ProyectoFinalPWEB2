@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, pre_save, post_save
 from django.dispatch import receiver
 # Create your models here.
 
@@ -48,13 +48,16 @@ class Entry(models.Model):
     def save(self):
         if self.id:
             old = Entry.objects.get(pk = self.id)
+            i = Inventory.objects.get(name_product = self.product.name)
             print(self.cant)
+            print(i.cant)
             print(old.cant)
-            self.cant = self.cant - old.cant
-            print(self.cant)
+            i.cant = i.cant - old.cant
+            print(i.cant)
+            i.save()
         super(Entry, self).save()
         #Entry.objects.all().delete()
-        create_inventory = False
+        """ create_inventory = False
         for i in Inventory.objects.all():
             if str(self.product.name) == str(i.name_product): 
                 create_inventory = False
@@ -70,8 +73,8 @@ class Entry(models.Model):
         I = Inventory.objects.all()
         if not I.exists():
             I = Inventory(product = self, price_product = self.product.price, cant = self.cant, name_product = str(self.product.name),entry_date = self.created_at)
-            I.save()
-        #Inventory.objects.all().delete()
+            I.save() """
+        #Inventory.objects.all().delete() """
         
     class Meta:
         verbose_name = "Entrada"
@@ -102,17 +105,19 @@ class Sale(models.Model):
     def save(self):
         if self.id:
             old = Sale.objects.get(pk = self.id)
+            i = Inventory.objects.get(name_product = self.product.name_product)
             print(self.cant)
             print(old.cant)
-            self.cant = self.cant - old.cant
-            print(self.cant)        
+            i.cant = i.cant + old.cant
+            print(self.cant)    
+            i.save()    
         super(Sale, self).save()
         #Inventory.objects.all().delete()   
-        for i in Inventory.objects.all():
+        """ for i in Inventory.objects.all():
             if str(self.product) == str(i):
                 I = Inventory.objects.get(id = i.id)
                 I.cant = I.cant - self.cant
-                I.save()
+                I.save() """
     @property            
     def total_price(self):
         total_price = 0
@@ -137,8 +142,35 @@ def delete_entry(sender, instance, **kwargs):
 
 @receiver(post_delete, sender = Sale)
 def delete_sale(sender, instance, **kwargs):
-    print(" :v ")
     removed = Inventory.objects.get(name_product = instance.product.name_product)
     print(removed)
     removed.cant = removed.cant + instance.cant
     removed.save()
+
+@receiver(post_save, sender = Entry)
+def post_save_entry(sender, instance, **kwargs):
+    create_inventory = False
+    inventory = Inventory.objects.all()
+    if not inventory.exists():
+        I = Inventory(product = instance, price_product = instance.product.price, cant = instance.cant, name_product = str(instance.product.name),entry_date = instance.created_at)
+        I.save()
+    for i in inventory:
+        if str(instance.product.name) == str(i.name_product): 
+            create_inventory = False
+            I = Inventory.objects.get(id = i.id)
+            I.cant = I.cant + instance.cant
+            I.save()
+            break
+        if str(instance.product.name) != str(i.name_product) and i.id: 
+            create_inventory = True
+    if create_inventory == True: 
+        I = Inventory(product= instance, price_product = instance.product.price, cant = instance.cant, name_product = str(instance.product.name),entry_date = instance.created_at)
+        I.save()
+    #Inventory.objects.all().delete()
+     
+@receiver(post_save, sender = Sale)
+def post_save_sale(sender, instance, **kwargs):
+    i = Inventory.objects.get(name_product = str(instance.product))
+    i.cant = i.cant - instance.cant
+    i.save() 
+    
