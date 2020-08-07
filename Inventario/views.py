@@ -19,7 +19,7 @@ def addProvider(request):
             instancia = form.save(commit = False)
             instancia.save()
             return redirect('home')
-    return render(request, "", {'form' : form})
+    return render(request, "addProvider.html", {'form' : form})
 
 def editProvider(request, provider_id):
     instancia = Provider.objects.get(id = provider_id)
