@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import ProviderForm
+from .forms import ProviderForm, ProductForm, EntryForm, SaleForm, InventoryForm
 from .models import Provider, Product, Entry, Sale, Inventory
 
 # Create your views here.
@@ -44,7 +44,7 @@ def addProduct(request):
             instancia = form.save(commit = False)
             instancia.save()
             return redirect('home')
-    return render(request, "", {'form' : form})
+    return render(request, "addProduct.html", {'form' : form})
 
 def editProduct(request, product_id):
     instancia = Product.objects.get(id = product_id)

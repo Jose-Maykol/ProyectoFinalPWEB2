@@ -3,7 +3,7 @@ from .models import Provider, Product, Entry, Sale, Inventory
 
 #create your forms
 
-class ProviderForm():
+class ProviderForm(forms.ModelForm):
 	class Meta:
 		model = Provider
 		fields = [
@@ -13,7 +13,7 @@ class ProviderForm():
 				'email',
 		]
 
-class ProductForm():
+class ProductForm(forms.ModelForm):
 	class Meta:
 		model = Product
 		fields = [
@@ -22,29 +22,26 @@ class ProductForm():
 				'presentation',
 				'user',
 				'providers',
-				'created_at',
 		]
 
-class EntryForm():
+class EntryForm(forms.ModelForm):
 	class Meta:
 		model = Entry
 		fields = [
 				'product',
 				'cant',
-				'created_at',
 		]
 
-class SaleForm():
+class SaleForm(forms.ModelForm):
 	class Meta:
 		model = Sale
 		fields = [
 				'user_name',
 				'product',
 				'cant',
-				'created_at'
 		]
 
-class Inventory():
+class InventoryForm(forms.ModelForm):
 	class Meta:
 		model = Inventory
 		fields = [
@@ -52,5 +49,4 @@ class Inventory():
 				'cant',
 				'name_product',
 				'price_product',
-				'entry_date',
 		]

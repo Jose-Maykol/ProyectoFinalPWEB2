@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.css' %}">
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
-	<script src="{% static '//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js' %}"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script>window.jQuery || document.write("<script src='{% static 'js/jquery-1.11.2.min.js' %}'><\/script>")</script>
 	<script src="{% static 'js/material.min.js' %}" ></script>
 	<script src="{% static 'js/sweetalert2.min.js' %}" ></script>
@@ -103,7 +103,7 @@
 					</li>
 					<li class="btn-exit" id="btn-exit">
 						<i class="zmdi zmdi-power"></i>
-						<div class="mdl-tooltip" for="btn-exit">Cerrar sesión</a></div>
+						<div class="mdl-tooltip" for="btn-exit" href="logout">Cerrar sesión </div>
 					</li>
 					<li class="text-condensedLight noLink" ><small>{{user.username}}</small></li>
 					<li class="noLink">
@@ -238,14 +238,37 @@
 					</li>
 					<li class="full-width divider-menu-h"></li>
 					<li class="full-width">
-						<a href="products" class="full-width">
+						<a href="#" class="full-width btn-subMenu">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-washing-machine"></i>
 							</div>
 							<div class="navLateral-body-cr hide-on-tablet">
 								PRODUCTOS
 							</div>
+							<span class="zmdi zmdi-chevron-left"></span>
 						</a>
+						<ul class="full-width menu-principal sub-menu-options">
+							<li class="full-width">
+								<a href="addProduct" class="full-width">
+									<div class="navLateral-body-cl">
+										<i class="zmdi zmdi-account"></i>
+									</div>
+									<div class="navLateral-body-cr hide-on-tablet">
+										AÑADIR
+									</div>
+								</a>
+							</li>
+							<li class="full-width">
+								<a href="#" class="full-width">
+									<div class="navLateral-body-cl">
+										<i class="zmdi zmdi-accounts"></i>
+									</div>
+									<div class="navLateral-body-cr hide-on-tablet">
+										EDITAR
+									</div>
+								</a>
+							</li>
+						</ul>
 					</li>
 					<li class="full-width divider-menu-h"></li>
 					<li class="full-width">

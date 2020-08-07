@@ -31,3 +31,7 @@ def index(request):
     else:
         form = AuthenticationForm()
     return render(request,'index.html',{'form':form})
+
+def logout(request):
+    auth.logout(request)
+    return redirect('')
