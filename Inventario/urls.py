@@ -20,7 +20,7 @@ urlpatterns = [
     path('providers', views.providers, name ='providers'),
     path('payments', views.payments, name ='payments'),
     path('client', views.client, name = 'client'),
-    path('admin', views.admin, name = 'admin'),
+    path('administrator', views.admin, name = 'administrator'),
     path('sales', views.sales, name = 'sales'),
     path('inventory', views.inventory, name = 'inventory'),
 ]

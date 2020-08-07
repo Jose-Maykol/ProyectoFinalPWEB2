@@ -104,7 +104,7 @@ def categories(request):
     return render(request,'categories.html')
 
 def admin(request):
-    return render(request,'admin.html')
+    return render(request,'administrator.html')
 
 def client(request):
     return render(request,'client.html')

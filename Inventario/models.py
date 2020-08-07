@@ -24,7 +24,7 @@ class Product(models.Model):
     name = models.CharField(max_length= 200, null= True, verbose_name= "Nombre del producto")
     price  = models.FloatField(null= True, verbose_name= "Precio")
     presentation = models.CharField(max_length= 200, null= True, choices= PRESENTATIONS, verbose_name= "Presentación")
-    user = models.ForeignKey(User, on_delete= models.CASCADE, verbose_name= "Usuario")
+    user = models.ForeignKey(User, on_delete= models.SET_DEFAULT, verbose_name= "Usuario", default= None)
     providers = models.ManyToManyField(Provider, verbose_name = "Proveedores", default= None)
     #Linea = models.ForeignKey(Linea,on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, null= True)
@@ -49,11 +49,7 @@ class Entry(models.Model):
         if self.id:
             old = Entry.objects.get(pk = self.id)
             i = Inventory.objects.get(name_product = old.product.name)
-            print(self.cant)
-            print(i.cant)
-            print(old.cant)
             i.cant = i.cant - old.cant
-            print(i.cant)
             i.save()
         super(Entry, self).save()
         
@@ -88,7 +84,7 @@ class Sale(models.Model):
             old = Sale.objects.get(pk = self.id)
             i = Inventory.objects.get(name_product = old.product.name_product)
             i.cant = i.cant + old.cant 
-            i.save()   
+            i.save() 
         super(Sale, self).save()   
 
     @property            
@@ -120,9 +116,6 @@ def delete_sale(sender, instance, **kwargs):
 def post_save_entry(sender, instance, **kwargs):
     create_inventory = False
     inventory = Inventory.objects.all()
-    if not inventory.exists():
-        I = Inventory(product = instance, price_product = instance.product.price, cant = instance.cant, name_product = str(instance.product.name),entry_date = instance.created_at)
-        I.save()
     for i in inventory:
         if str(instance.product.name) == str(i.name_product): 
             create_inventory = False
@@ -132,10 +125,14 @@ def post_save_entry(sender, instance, **kwargs):
             break
         if str(instance.product.name) != str(i.name_product): 
             create_inventory = True
-    if create_inventory == True: 
+    if not inventory.exists():
+        I = Inventory(product = instance, price_product = instance.product.price, cant = instance.cant, name_product = str(instance.product.name),entry_date = instance.created_at)
+        I.save()
+    if create_inventory == True : 
         I = Inventory(product= instance, price_product = instance.product.price, cant = instance.cant, name_product = str(instance.product.name),entry_date = instance.created_at)
         I.save()
-     
+    #Inventory.objects.all().delete()
+
 @receiver(post_save, sender = Sale)
 def post_save_sale(sender, instance, **kwargs):
     i = Inventory.objects.get(name_product = str(instance.product))
