@@ -3,6 +3,7 @@ from .forms import ProviderForm
 from .models import Provider, Product, Entry
 
 # Create your views here.
+
 def home(request):
     context = {
         'numProvi' : Provider.objects.count(),
@@ -32,6 +33,31 @@ def editProvider(request, provider_id):
 
 def deleteProvider(request, provider_id):
     instancia = Provider.objects.get(id = provider_id)
+    instancia.delete()
+    return redirect('home')
+
+def addProduct(request):
+    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+            return redirect('home')
+    return render(request, "", {'form' : form})
+
+def editProduct(request, product_id):
+    instancia = Product.objects.get(id = product_id)
+    form = ProductForm(instance = instancia)
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance = instancia)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+    return render(request, "", {'form' : form})
+
+def deleteProduct(request, product_id):
+    instancia = Product.objects.get(id = product_id)
     instancia.delete()
     return redirect('home')
 
