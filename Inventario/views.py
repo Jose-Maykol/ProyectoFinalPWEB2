@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ProviderForm
-from .models import Provider, Product, Entry
+from .models import Provider, Product, Entry, Sale, Inventory
 
 # Create your views here.
 
@@ -61,6 +61,35 @@ def deleteProduct(request, product_id):
     instancia.delete()
     return redirect('home')
 
+def addEntry(request):
+    form = EntryForm()
+    if request.method == 'POST':
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+            return redirect('home')
+    return render(request, "", {'form' : form})
+
+def addSale(request):
+    form = SaleForm()
+    if request.method == 'POST':
+        form = SaleForm(request.POST)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+            return redirect('home')
+    return render(request, "", {'form' : form})
+
+def addInventory(request):
+    form = InventoryForm()
+    if request.method == 'POST':
+        form = InventoryForm(request.POST)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+            return redirect('home')
+    return render(request, "", {'form' : form})
 
 def company(request):
     return render(request,'company.html')
