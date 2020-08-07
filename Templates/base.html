@@ -1,20 +1,20 @@
 {% load static %}
 <!-- 
-* Copyright 2016 Carlos Eduardo Alfaro Orellana
+* BASE
 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Inventory</title>
+	<title>{% block title %}{% endblock %}</title>
 	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
 	<link rel="stylesheet" href="{% static 'css/sweetalert2.css' %}">
-	<link rel="stylesheet" href="{% static 'css/material.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/material.min.css'%}">
 	<link rel="stylesheet" href="{% static 'css/material-design-iconic-font.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.css' %}">
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="{% static '//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js' %}"></script>
 	<script>window.jQuery || document.write("<script src='{% static 'js/jquery-1.11.2.min.js' %}'><\/script>")</script>
 	<script src="{% static 'js/material.min.js' %}" ></script>
 	<script src="{% static 'js/sweetalert2.min.js' %}" ></script>
@@ -26,7 +26,7 @@
 	<section class="full-width container-notifications">
 		<div class="full-width container-notifications-bg btn-Notification"></div>
 	    <section class="NotificationArea">
-	        <div class="full-width text-center NotificationArea-title tittles">Notifications <i class="zmdi zmdi-close btn-Notification"></i></div>
+	        <div class="full-width text-center NotificationArea-title tittles">Notificaciones <i class="zmdi zmdi-close btn-Notification"></i></div>
 	        <a href="#" class="Notification" id="notifation-unread-1">
 	            <div class="Notification-icon"><i class="zmdi zmdi-accounts-alt bg-info"></i></div>
 	            <div class="Notification-text">
@@ -99,11 +99,11 @@
 					<li class="btn-Notification" id="notifications">
 						<i class="zmdi zmdi-notifications"></i>
 						<!-- <i class="zmdi zmdi-notifications-active btn-Notification" id="notifications"></i> -->
-						<div class="mdl-tooltip" for="notifications">Notifications</div>
+						<div class="mdl-tooltip" for="notifications">Notificaciones</div>
 					</li>
 					<li class="btn-exit" id="btn-exit">
 						<i class="zmdi zmdi-power"></i>
-						<div class="mdl-tooltip" for="btn-exit">LogO</div>
+						<div class="mdl-tooltip" for="btn-exit">Cerrar sesión</a></div>
 					</li>
 					<li class="text-condensedLight noLink" ><small>{{user.username}}</small></li>
 					<li class="noLink">
@@ -120,7 +120,7 @@
 		<div class="full-width navLateral-bg btn-menu"></div>
 		<div class="full-width navLateral-body">
 			<div class="full-width navLateral-body-logo text-center tittles">
-				<i class="zmdi zmdi-close btn-menu"></i> Inventory 
+				<i class="zmdi zmdi-close btn-menu"></i> Inventario 
 			</div>
 			<figure class="full-width" style="height: 77px;">
 				<div class="navLateral-body-cl">
@@ -128,13 +128,13 @@
 				</div>
 				<figcaption class="navLateral-body-cr hide-on-tablet">
 					<span>
-						Full Name Admin<br>
-						<small>Admin</small>
+						{{user.first_name}}<br>
+						<small>Administracion</small>
 					</span>
 				</figcaption>
 			</figure>
 			<div class="full-width tittles navLateral-body-tittle-menu">
-				<i class="zmdi zmdi-desktop-mac"></i><span class="hide-on-tablet">&nbsp; DASHBOARD</span>
+				<i class="zmdi zmdi-desktop-mac"></i><span class="hide-on-tablet">&nbsp; TABLERO</span>
 			</div>
 			<nav class="full-width">
 				<ul class="full-width list-unstyle menu-principal">
@@ -144,18 +144,18 @@
 								<i class="zmdi zmdi-view-dashboard"></i>
 							</div>
 							<div class="navLateral-body-cr hide-on-tablet">
-								HOME
+								PAGINA PRINCIPAL
 							</div>
 						</a>
 					</li>
 					<li class="full-width divider-menu-h"></li>
 					<li class="full-width">
-						<a href="#!" class="full-width btn-subMenu">
+						<a href="#" class="full-width btn-subMenu">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-case"></i>
 							</div>
 							<div class="navLateral-body-cr hide-on-tablet">
-								ADMINISTRATION
+								ADMINISTRACION
 							</div>
 							<span class="zmdi zmdi-chevron-left"></span>
 						</a>
@@ -166,7 +166,7 @@
 										<i class="zmdi zmdi-balance"></i>
 									</div>
 									<div class="navLateral-body-cr hide-on-tablet">
-										COMPANY
+										EMPRESA
 									</div>
 								</a>
 							</li>
@@ -176,7 +176,7 @@
 										<i class="zmdi zmdi-truck"></i>
 									</div>
 									<div class="navLateral-body-cr hide-on-tablet">
-										PROVIDERS
+										PROVEEDORES
 									</div>
 								</a>
 							</li>
@@ -186,7 +186,7 @@
 										<i class="zmdi zmdi-card"></i>
 									</div>
 									<div class="navLateral-body-cr hide-on-tablet">
-										PAYMENTS
+										PAGOS
 									</div>
 								</a>
 							</li>
@@ -196,7 +196,7 @@
 										<i class="zmdi zmdi-label"></i>
 									</div>
 									<div class="navLateral-body-cr hide-on-tablet">
-										CATEGORIES
+										CATEGORIAS
 									</div>
 								</a>
 							</li>
@@ -204,12 +204,12 @@
 					</li>
 					<li class="full-width divider-menu-h"></li>
 					<li class="full-width">
-						<a href="#!" class="full-width btn-subMenu">
+						<a href="#" class="full-width btn-subMenu">
 							<div class="navLateral-body-cl">
 								<i class="zmdi zmdi-face"></i>
 							</div>
 							<div class="navLateral-body-cr hide-on-tablet">
-								USERS
+								USUARIOS
 							</div>
 							<span class="zmdi zmdi-chevron-left"></span>
 						</a>
@@ -220,7 +220,7 @@
 										<i class="zmdi zmdi-account"></i>
 									</div>
 									<div class="navLateral-body-cr hide-on-tablet">
-										ADMINISTRATORS
+										ADMINISTRADORES
 									</div>
 								</a>
 							</li>
@@ -230,7 +230,7 @@
 										<i class="zmdi zmdi-accounts"></i>
 									</div>
 									<div class="navLateral-body-cr hide-on-tablet">
-										CLIENT
+										CLIENTES
 									</div>
 								</a>
 							</li>
@@ -243,7 +243,7 @@
 								<i class="zmdi zmdi-washing-machine"></i>
 							</div>
 							<div class="navLateral-body-cr hide-on-tablet">
-								PRODUCTS
+								PRODUCTOS
 							</div>
 						</a>
 					</li>
@@ -254,7 +254,7 @@
 								<i class="zmdi zmdi-shopping-cart"></i>
 							</div>
 							<div class="navLateral-body-cr hide-on-tablet">
-								SALES
+								VENTAS
 							</div>
 						</a>
 					</li>
@@ -265,7 +265,7 @@
 								<i class="zmdi zmdi-store"></i>
 							</div>
 							<div class="navLateral-body-cr hide-on-tablet">
-								INVENTORY
+								INVENTARIO
 							</div>
 						</a>
 					</li>
@@ -276,7 +276,7 @@
 								<i class="zmdi zmdi-wrench"></i>
 							</div>
 							<div class="navLateral-body-cr hide-on-tablet">
-								SETTINGS
+								CONFIGURACIONES
 							</div>
 							<span class="zmdi zmdi-chevron-left"></span>
 						</a>
@@ -287,7 +287,7 @@
 										<i class="zmdi zmdi-widgets"></i>
 									</div>
 									<div class="navLateral-body-cr hide-on-tablet">
-										OPTION
+										OPCION 1
 									</div>
 								</a>
 							</li>
@@ -297,7 +297,7 @@
 										<i class="zmdi zmdi-widgets"></i>
 									</div>
 									<div class="navLateral-body-cr hide-on-tablet">
-										OPTION
+										OPCION 2
 									</div>
 								</a>
 							</li>
@@ -308,84 +308,9 @@
 		</div>
 	</section>
 	<!-- pageContent -->
-	<section class="full-width pageContent">
-		<section class="full-width header-well">
-			<div class="full-width header-well-icon">
-				<i class="zmdi zmdi-store"></i>
-			</div>
-			<div class="full-width header-well-text">
-				<p class="text-condensedLight">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde aut nulla accusantium minus corporis accusamus fuga harum natus molestias necessitatibus.
-				</p>
-			</div>
-		</section>
-		<div class="full-width divider-menu-h"></div>
-		<div class="mdl-grid">
-			<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
-				<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width table-responsive">
-					<thead>
-						<tr>
-							<th class="mdl-data-table__cell--non-numeric">Name</th>
-							<th>Code</th>
-							<th>Stock</th>
-							<th>Price</th>
-							<th>Options</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</section>
+	{% block content %}
+
+	{% endblock %}
+
 </body>
 </html>
