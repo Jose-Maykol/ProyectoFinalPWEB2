@@ -1,5 +1,5 @@
 from django import forms
-from .models import Provider, Product, Entry, Sale
+from .models import Provider, Product, Entry, Sale, Inventory
 
 #create your forms
 
