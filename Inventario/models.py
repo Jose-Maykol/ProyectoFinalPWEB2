@@ -120,6 +120,7 @@ class Sale(models.Model):
     product = models.ForeignKey(Inventory, on_delete= models.SET_DEFAULT, verbose_name= "Producto", default= None)
     cant =  models.PositiveIntegerField(null= True, verbose_name= "Cantidad")
     created_at = models.DateTimeField(auto_now_add=True, null= True,verbose_name= "Fecha de venta")
+    total_price = models.PositiveIntegerField(null = True, verbose_name= "Precio total", blank = True)
 
     def __str__(self):
         date = str(self.created_at)
@@ -132,19 +133,15 @@ class Sale(models.Model):
             i.cant = i.cant + old.cant 
             i.save() 
         super(Sale, self).save()   
-
-    @property            
-    def total_price(self):
-        total_price = 0
-        for i in Inventory.objects.all():
-            if str(self.product) == str(i):
-                I = Inventory.objects.get(id = i.id)
-                total_price = I.price_product* self.cant
-        return total_price
-
+          
     class Meta:
         verbose_name = "Salida"
         verbose_name_plural =  "Salidas"
+
+@receiver(pre_save, sender = Sale)
+def get_total_price(sender, instance, **kwargs):
+    total_price = instance.product.price_product * instance.cant
+    instance.total_price = total_price
     
 @receiver(post_delete, sender = Entry)
 def delete_entry(sender, instance, **kwargs): 
@@ -181,9 +178,12 @@ def post_save_entry(sender, instance, **kwargs):
 
 @receiver(post_save, sender = Sale)
 def post_save_sale(sender, instance, **kwargs):
-    if kwargs.get('created'):
-        user = User.objetcs.get(username = instance)
-        Sale.objects.get_or_create(empleado_de_turno = user)
     i = Inventory.objects.get(name_product = str(instance.product))
     i.cant = i.cant - instance.cant
     i.save() 
+
+""" @receiver(post_save, sender = User)
+def get_user(sender, instance, **kwargs):
+    if kwargs.get('created'):
+        user = User.objetcs.get(username = instance)
+        Sale.objects.get_or_create(user_name = user) """
