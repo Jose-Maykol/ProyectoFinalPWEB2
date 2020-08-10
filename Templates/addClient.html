@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+<!-- 
+* addClient
+-->
+{% block title %}Añadir cliente{% endblock %}
+
+<!-- pageContent -->
+{% block content %}
+	<section class="full-width pageContent">
+		<section class="full-width header-well">
+			<div class="full-width header-well-icon">
+				<i class="zmdi zmdi-washing-machine"></i>
+			</div>
+			<div class="full-width header-well-text">
+				<p class="text-condensedLight">
+					CLIENTES
+				</p>
+			</div>
+		</section>
+		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+			<div class="mdl-tabs__tab-bar">
+				<a href="#tabNewProduct" class="mdl-tabs__tab is-active">NUEVO</a>
+			</div>
+			<div class="mdl-tabs__panel is-active" id="tabNewProduct">
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
+						<div class="full-width panel mdl-shadow--2dp">
+							<div class="full-width panel-tittle bg-primary text-center tittles">
+								Nuevo cliente
+							</div>
+							<div class="full-width panel-content">
+								<form method="POST" enctype="multipart/form-data">
+									<h5 class="text-condensedLight">Información básica</h5> 
+									{% csrf_token %}
+									{{ form.as_p }}
+									<p class="text-center">
+										<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addProduct">
+											<i class="zmdi zmdi-plus"></i>
+										</button>
+										<div class="mdl-tooltip" for="btn-addProduct">Añadir cliente</div>
+									</p>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+{% endblock %}

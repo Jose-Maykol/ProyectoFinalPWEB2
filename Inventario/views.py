@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import ProviderForm, ProductForm, EntryForm, SaleForm, InventoryForm
-from .models import Provider, Product, Entry, Sale, Inventory
+from .forms import ProviderForm, ProductForm, EntryForm, SaleForm, InventoryForm, ClientForm
+from .models import Provider, Product, Entry, Sale, Inventory, Client
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -10,7 +10,7 @@ def home(request):
         'numProvi' : Provider.objects.count(),
         'numProdu' : Product.objects.count(),
         'numAdmin' : User.objects.count(),
-        #'numWorkers' : .objects.count(),
+        'numClient' : Client.objects.count(),
         }
     return render(request,'home.html', context)
 
@@ -77,6 +77,38 @@ def listProduct(request):
         'productos' : Product.objects.all(),
         }
     return render(request, "listProduct.html", context)
+
+def addClient(request):
+    form = ClientForm()
+    if request.method == 'POST':
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+            return redirect('home')
+    return render(request, "addClient.html", {'form' : form})
+
+def editClient(request, client_id):
+    instancia = Client.objects.get(id = client_id)
+    form = ClientForm(instance = instancia)
+    if request.method == "POST":
+        form = ClientForm(request.POST, instance = instancia)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+        return redirect("listClient")
+    return render(request, "editClient.html", {'form' : form})
+
+def deleteClient(request, product_id):
+    instancia = Client.objects.get(id = product_id)
+    instancia.delete()
+    return redirect('home')
+
+def listClient(request):
+    context = {
+        'clientes' : Client.objects.all(),
+        }
+    return render(request, "listClient.html", context)
 
 def addEntry(request):
     form = EntryForm()

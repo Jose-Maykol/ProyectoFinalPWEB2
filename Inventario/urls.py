@@ -4,6 +4,11 @@ from . import views
 urlpatterns = [
     
     path('home', views.home, name = 'home'),
+
+    path('listClient', views.listClient, name ='listClient'),
+    path('addClient', views.addClient, name = 'addClient'),
+    path('editClient/<int:client_id>', views.editClient, name = 'editClient'),
+    path('deleteClient/<int:client_id>', views.deleteClient, name ='deleteClient'),
     
     path('listProvider', views.listProvider, name ='listProvider'),
     path('addProvider', views.addProvider, name = 'addProvider'),

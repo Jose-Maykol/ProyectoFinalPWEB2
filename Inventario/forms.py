@@ -1,7 +1,17 @@
 from django import forms
-from .models import Provider, Product, Entry, Sale, Inventory
+from .models import Provider, Product, Entry, Sale, Inventory, Client
 
 #create your forms
+class ClientForm(forms.ModelForm):
+	class Meta:
+		model = Client
+		fields = [
+				'customer_name',
+				'phone',
+				'email',
+				'razon_social',
+				'RUC',
+		]
 
 class ProviderForm(forms.ModelForm):
 	class Meta:
@@ -39,7 +49,7 @@ class SaleForm(forms.ModelForm):
 				'user_name',
 				'product',
 				'cant',
-				'totalPrice',
+				'total_price',
 		]
 
 class InventoryForm(forms.ModelForm):
