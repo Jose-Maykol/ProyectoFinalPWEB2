@@ -47,6 +47,7 @@ class SaleForm(forms.ModelForm):
 		model = Sale
 		fields = [
 				'user_name',
+				'client',
 				'product',
 				'cant',
 				'total_price',
