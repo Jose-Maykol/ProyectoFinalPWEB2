@@ -1,46 +1,44 @@
 {% extends 'base.html' %}
-
 <!-- 
-* editProduct
+EDIT PROVIDERS
 -->
-{% block title %}Editar producto{% endblock %}
+{% block title %}Editar proveedor{% endblock %}
 
 <!-- pageContent -->
 {% block content %}
-<section class="full-width pageContent">
+	<section class="full-width pageContent">
 		<section class="full-width header-well">
 			<div class="full-width header-well-icon">
-				<i class="zmdi zmdi-washing-machine"></i>
+				<i class="zmdi zmdi-truck"></i>
 			</div>
 			<div class="full-width header-well-text">
 				<p class="text-condensedLight">
-					PRODUCTOS
+					Un proveedor es una empresa o persona física que proporciona bienes o servicios a otras personas o empresas.
 				</p>
 			</div>
 		</section>
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			<div class="mdl-tabs__tab-bar">
-				<a href="#tabNewProduct" class="mdl-tabs__tab is-active">EDITAR</a>
+				<a href="#tabNewProvider" class="mdl-tabs__tab is-active">EDITAR</a>
 			</div>
-			<div class="mdl-tabs__panel is-active" id="tabNewProduct">
+			<div class="mdl-tabs__panel is-active" id="tabNewProvider">
 				<div class="mdl-grid">
 					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 						<div class="full-width panel mdl-shadow--2dp">
 							<div class="full-width panel-tittle bg-primary text-center tittles">
-								Editar producto
+								Editar proveedor
 							</div>
 							<div class="full-width panel-content">
 								<form method="POST" enctype="multipart/form-data">
-									 
+									<h5 class="text-condensedLight">Formulario</h5>
 									{% csrf_token %}
 									{{ form.as_p }}
 									
-
 									<p class="text-center">
-										<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addProduct">
+										<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addProvider">
 											<i class="zmdi zmdi-check"></i>
 										</button>
-										<div class="mdl-tooltip" for="btn-addProduct">Editar producto</div>
+										<div class="mdl-tooltip" for="btn-addProvider">Editar proveedor</div>
 									</p>
 								</form>
 							</div>
@@ -48,14 +46,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</section>
-<form method="POST" enctype="multipart/form-data">
-	<h2>EDitar producto</h2>
-    {% csrf_token %}
-    {{ form.as_p }}
-    
-    <button type="submit">Editar</button>
-</form>
 {% endblock %}

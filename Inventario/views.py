@@ -32,7 +32,8 @@ def editProvider(request, provider_id):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
-    return render(request, "", {'form' : form})
+        return redirect("listProvider")
+    return render(request, "editProvider.html", {'form' : form})
 
 def deleteProvider(request, provider_id):
     instancia = Provider.objects.get(id = provider_id)
@@ -63,6 +64,7 @@ def editProduct(request, product_id):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
+        return redirect("listProduct")
     return render(request, "editProduct.html", {'form' : form})
 
 def deleteProduct(request, product_id):
