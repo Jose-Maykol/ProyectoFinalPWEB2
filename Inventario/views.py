@@ -86,7 +86,7 @@ def addEntry(request):
             instancia = form.save(commit = False)
             instancia.save()
             return redirect('home')
-    return render(request, "", {'form' : form})
+    return render(request, "addEntry.html", {'form' : form})
 
 def addSale(request):
     form = SaleForm()
@@ -96,7 +96,7 @@ def addSale(request):
             instancia = form.save(commit = False)
             instancia.save()
             return redirect('home')
-    return render(request, "", {'form' : form})
+    return render(request, "addSale.html", {'form' : form})
 
 def addInventory(request):
     form = InventoryForm()
