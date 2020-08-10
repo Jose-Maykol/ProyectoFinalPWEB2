@@ -4,12 +4,17 @@ from . import views
 urlpatterns = [
     
     path('home', views.home, name = 'home'),
+    
+    path('listProvider', views.listProvider, name ='listProvider'),
     path('addProvider', views.addProvider, name = 'addProvider'),
     path('editProvider/<int:provider_id>', views.editProvider, name = 'editProvider'),
     path('deleteProvider/<int:provider_id>', views.deleteProvider, name ='deleteProvider'),
+
+    path('listProduct', views.listProduct, name ='listProduct'),
     path('addProduct', views.addProduct, name = 'addProduct'),
     path('editProduct/<int:product_id>', views.editProduct, name = 'editProduct'),
     path('deleteProduct/<int:product_id>', views.deleteProduct, name ='deleteProduct'),
+
     path('addEntry', views.addEntry, name = 'addEntry'),
     path('addSale', views.addSale, name = 'addSale'),
     path('addInventory', views.addInventory, name = 'addInventory'),

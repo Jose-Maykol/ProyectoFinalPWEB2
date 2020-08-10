@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+<!-- 
+* editProduct
+-->
+{% block title %}Editar producto{% endblock %}
+
+<!-- pageContent -->
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Editar</button>
+</form>
+{% endblock %}

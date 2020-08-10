@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import ProviderForm, ProductForm, EntryForm, SaleForm, InventoryForm
 from .models import Provider, Product, Entry, Sale, Inventory
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -8,6 +9,8 @@ def home(request):
     context = {
         'numProvi' : Provider.objects.count(),
         'numProdu' : Product.objects.count(),
+        'numAdmin' : User.objects.count(),
+        #'numWorkers' : .objects.count(),
         }
     return render(request,'home.html', context)
 
@@ -36,6 +39,12 @@ def deleteProvider(request, provider_id):
     instancia.delete()
     return redirect('home')
 
+def listProvider(request):
+    context = {
+        'proveedores' : Provider.objects.all(),
+        }
+    return render(request, "listProvider.html", context)
+
 def addProduct(request):
     form = ProductForm()
     if request.method == 'POST':
@@ -54,12 +63,18 @@ def editProduct(request, product_id):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
-    return render(request, "", {'form' : form})
+    return render(request, "editProduct.html", {'form' : form})
 
 def deleteProduct(request, product_id):
     instancia = Product.objects.get(id = product_id)
     instancia.delete()
     return redirect('home')
+
+def listProduct(request):
+    context = {
+        'productos' : Product.objects.all(),
+        }
+    return render(request, "listProduct.html", context)
 
 def addEntry(request):
     form = EntryForm()
