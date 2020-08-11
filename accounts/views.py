@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate
 from .forms import SignUpForm
 from django.shortcuts import render, redirect
 from Inventario.views import home
+from django.contrib.auth import logout as do_logout
 
 def SignUp(request):
     form = SignUpForm(request.POST)
@@ -33,5 +34,6 @@ def index(request):
     return render(request,'index.html',{'form':form})
 
 def logout(request):
-    auth.logout(request)
-    return redirect('')
+    do_logout(request)
+    #auth.logout(request)
+    return redirect('index')

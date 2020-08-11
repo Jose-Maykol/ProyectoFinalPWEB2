@@ -2,17 +2,20 @@ from django.shortcuts import render, redirect
 from .forms import ProviderForm, ProductForm, EntryForm, SaleForm, InventoryForm, ClientForm
 from .models import Provider, Product, Entry, Sale, Inventory, Client
 from django.contrib.auth.models import User
+from accounts.views import login
 
 # Create your views here.
 
 def home(request):
-    context = {
-        'numProvi' : Provider.objects.count(),
-        'numProdu' : Product.objects.count(),
-        'numAdmin' : User.objects.count(),
-        'numClient' : Client.objects.count(),
-        }
-    return render(request,'home.html', context)
+    if request.user.is_authenticated:
+        context = {
+                'numProvi' : Provider.objects.count(),
+                'numProdu' : Product.objects.count(),
+                'numAdmin' : User.objects.count(),
+                'numClient' : Client.objects.count(),
+            }
+        return render(request,'home.html', context)
+    return redirect("index")
 
 def addProvider(request):
     form = ProviderForm()
