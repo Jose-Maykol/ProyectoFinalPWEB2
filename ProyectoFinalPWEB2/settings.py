@@ -123,3 +123,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'Static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
+#URL mediante la cual accederan a loas imagenes que ya esten subidas
+MEDIA_URL ='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+#la rutra donde quedan almacenadas las imagenes

@@ -84,6 +84,7 @@ class Product(models.Model):
                         ('Bolsa','Bolsa'),
                         ('Frasco','Frasco'))
     name = models.CharField(max_length= 200, null= True, verbose_name= "Nombre del producto")
+    img = models.ImageField(upload_to='pics', null=True, blank=True)
     price  = models.FloatField(null= True, verbose_name= "Precio")
     presentation = models.CharField(max_length= 200, null= True, choices= PRESENTATIONS, verbose_name= "Presentación")
     user = models.ForeignKey(User, on_delete= models.SET_DEFAULT, verbose_name= "Usuario", default= None)
@@ -121,7 +122,7 @@ class Store(models.Model):
     def save(self):
         if self.id:
             old = Store.objects.get(pk = self.id)
-            inventory = Inventory.objects.get(store = old.store_name)
+            inventory = Inventory.objects.filter(store = old.store_name)
             for i in inventory:
                 i.store = self.store_name
                 i.save()

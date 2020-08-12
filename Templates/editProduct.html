@@ -51,11 +51,5 @@
 
 		</div>
 	</section>
-<form method="POST" enctype="multipart/form-data">
-	<h2>EDitar producto</h2>
-    {% csrf_token %}
-    {{ form.as_p }}
-    
-    <button type="submit">Editar</button>
-</form>
+
 {% endblock %}

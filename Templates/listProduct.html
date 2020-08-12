@@ -48,7 +48,7 @@
 							{% for producto in productos %}
 							<div class="mdl-card mdl-shadow--2dp full-width product-card">
 								<div class="mdl-card__title">
-									<img src="{% static 'assets/img/fontLogin.jpg' %}" alt="product" class="img-responsive">
+									<img src="{{producto.img.url}}" alt="product" class="img-responsive">
 								</div>
 								<div class="mdl-card__supporting-text">
 									<small>Stock</small><br>
@@ -57,7 +57,7 @@
 								<div class="mdl-card__actions mdl-card--border">
 									{{producto.name}}
 									<a href="/editProduct/{{producto.id}}" class="btn btn-success zmdi zmdi-edit" role="button"></a>
-									<a href="/deleteProduct/{{producto.id}}" class="btn btn-danger zmdi zmdi-delete" role="button" onClick="return confirm('¿Seguro que quieres borrar a {{ producto.name }}?');"></a>
+									<a enctype="multipart/form-data" href="/deleteProduct/{{producto.id}}" class="btn btn-danger zmdi zmdi-delete" role="button" onClick="return confirm('¿Seguro que quieres borrar a {{ producto.name }}?');"></a>
 								</div>
 							</div>
 							{% endfor %}

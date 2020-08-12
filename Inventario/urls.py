@@ -1,9 +1,16 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     
     path('home', views.home, name = 'home'),
+
+    path('listStore', views.listStore, name ='listStore'),
+    path('addStore', views.addStore, name = 'addStore'),
+    path('editStore/<int:store_id>', views.editStore, name = 'editStore'),
+    path('deleteStore/<int:store_id>', views.deleteStore, name ='deleteStore'),
 
     path('listClient', views.listClient, name ='listClient'),
     path('addClient', views.addClient, name = 'addClient'),
@@ -34,3 +41,4 @@ urlpatterns = [
     path('sales', views.sales, name = 'sales'),
     path('inventory', views.inventory, name = 'inventory'),
 ]
+urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

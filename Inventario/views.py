@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import ProviderForm, ProductForm, EntryForm, SaleForm, InventoryForm, ClientForm
-from .models import Provider, Product, Entry, Sale, Inventory, Client
+from .forms import ProviderForm, ProductForm, EntryForm, SaleForm, InventoryForm, ClientForm, StoreForm
+from .models import Provider, Product, Entry, Sale, Inventory, Client, Store
 from django.contrib.auth.models import User
 from accounts.views import login
 
@@ -16,6 +16,38 @@ def home(request):
             }
         return render(request,'home.html', context)
     return redirect("index")
+
+def addStore(request):
+    form = StoreForm()
+    if request.method == 'POST':
+        form = StoreForm(request.POST)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+            return redirect('home')
+    return render(request, "addStore.html", {'form' : form})
+
+def editStore(request, store_id):
+    instancia = Store.objects.get(id = store_id)
+    form = StoreForm(instance=instancia)
+    if request.method == "POST":
+        form = StoreForm(request.POST, instance = instancia)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+        return redirect("listStore")
+    return render(request, "editStore.html", {'form' : form})
+
+def deleteStore(request, store_id):
+    instancia = Store.objects.get(id = store_id)
+    instancia.delete()
+    return redirect('home')
+
+def listStore(request):
+    context = {
+        'almacenes' : Store.objects.all(),
+        }
+    return render(request, "listStore.html", context)
 
 def addProvider(request):
     form = ProviderForm()
@@ -52,10 +84,11 @@ def listProvider(request):
 def addProduct(request):
     form = ProductForm()
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST,request.FILES)
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
+            message= "Image upload succesfully"
             return redirect('home')
     return render(request, "addProduct.html", {'form' : form})
 
@@ -63,7 +96,7 @@ def editProduct(request, product_id):
     instancia = Product.objects.get(id = product_id)
     form = ProductForm(instance = instancia)
     if request.method == "POST":
-        form = ProductForm(request.POST, instance = instancia)
+        form = ProductForm(request.POST, request.FILES, instance = instancia)
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
@@ -102,8 +135,8 @@ def editClient(request, client_id):
         return redirect("listClient")
     return render(request, "editClient.html", {'form' : form})
 
-def deleteClient(request, product_id):
-    instancia = Client.objects.get(id = product_id)
+def deleteClient(request, cliente_id):
+    instancia = Client.objects.get(id = cliente_id)
     instancia.delete()
     return redirect('home')
 
