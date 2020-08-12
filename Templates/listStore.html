@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+<!-- 
+* LISTAR ALMACEN - STORE
+-->
+{% block title %}Listar almacen{% endblock %}
+
+<!-- pageContent -->
+{% block content %}
+	<section class="full-width pageContent">
+		<section class="full-width header-well">
+			<div class="full-width header-well-icon">
+				<i class="zmdi zmdi-truck"></i>
+			</div>
+			<div class="full-width header-well-text">
+				<p class="text-condensedLight">
+					ALMACENES
+				</p>
+			</div>
+		</section>
+		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+			<div class="mdl-tabs__tab-bar">
+				<a href="#tabListProvider" class="mdl-tabs__tab is-active">LISTAR</a>
+			</div>
+			<div class="mdl-tabs__panel is-active" id="tabListProvider">
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
+						<div class="full-width panel mdl-shadow--2dp">
+							<div class="full-width panel-tittle bg-success text-center tittles">
+								Listar almacenes
+							</div>
+							<div class="full-width panel-content">
+								<form action="#">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+										<label class="mdl-button mdl-js-button mdl-button--icon" for="searchProvider">
+											<i class="zmdi zmdi-search"></i>
+										</label>
+										<div class="mdl-textfield__expandable-holder">
+											<input class="mdl-textfield__input" type="text" id="searchProvider">
+											<label class="mdl-textfield__label"></label>
+										</div>
+									</div>
+								</form>
+								<div class="mdl-list">
+									{% for almacen in almacenes %}
+									<div class="mdl-list__item mdl-list__item--two-line">
+										<span class="mdl-list__item-primary-content">
+											<i class="zmdi zmdi-truck mdl-list__item-avatar"></i>
+											<span>{{almacen.store_name}}</span>
+											<span class="mdl-list__item-sub-title">Locacion: {{almacen.location}}</span>
+										</span>
+										<a href="/editStore/{{almacen.id}}" class="btn btn-success zmdi zmdi-edit" role="button"></a>
+										<a href="/deleteStore/{{almacen.id}}" class="btn btn-danger zmdi zmdi-delete" role="button" onClick="return confirm('¿Seguro que quieres borrar a {{ almacen.store_name }}?');"></a>
+									</div>
+									<li class="full-width divider-menu-h"></li>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
