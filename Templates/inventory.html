@@ -19,66 +19,32 @@
 		<div class="full-width divider-menu-h"></div>
 		<div class="mdl-grid">
 			<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
-				<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width table-responsive">
-					<thead>
-						<tr>
-							<th class="mdl-data-table__cell--non-numeric">Name</th>
-							<th>Code</th>
-							<th>Stock</th>
-							<th>Price</th>
-							<th>Options</th>
-						</tr>
+				<table class="table">
+					<thead class="thead-dark">
+					  <tr>
+						<th scope="col">Almacen</th>
+						<th scope="col">Producto</th>
+						<th scope="col">Precio</th>
+						<th scope="col">Cantidad</th>
+						<th scope="col">Presentacion</th>
+						<th scope="col">Proveedor</th>
+						<th scope="col">Linea</th>
+						<th scope="col">Dia de entrada</th>
+					  </tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">Product Name</td>
-							<td>Product Code</td>
-							<td>7</td>
-							<td>$77</td>
-							<td><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="zmdi zmdi-more"></i></button></td>
-						</tr>
+					{% for i in inventory%}
+					  <tr>
+						<td>{{i.store}}</td>
+						<td>{{i.name_product}}</td>
+						<td>{{i.price_product}}</td>
+						<td>{{i.cant}}</td>
+						<td>{{i.presentation}}</td>
+						<td>{{i.providers}}</td>
+						<td>{{i.line}}</td>
+						<td>{{i.entry_date}}</td>
+					  </tr>
+					{% endfor %}
 					</tbody>
 				</table>
 			</div>

@@ -235,6 +235,6 @@ def post_save_entry(sender, instance, **kwargs):
 
 @receiver(post_save, sender = Sale)
 def post_save_sale(sender, instance, **kwargs):
-    i = Inventory.objects.get(name_product = str(instance.product), store= str(instance.store))
+    i = Inventory.objects.get(name_product = str(instance.product.name_product), store= str(instance.store))
     i.cant = i.cant - instance.cant
     i.save()

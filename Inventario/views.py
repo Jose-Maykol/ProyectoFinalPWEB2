@@ -165,7 +165,9 @@ def products(request):
     return render(request,'products.html')
 
 def sales(request):
-    return render(request,'sales.html')
+    sales = Sale.objects.all()
+    return render(request,'sales.html',{'sales':sales})
 
 def inventory(request):
-    return render(request,'inventory.html')
+    inventory = Inventory.objects.all()
+    return render(request,'inventory.html',{'inventory':inventory})
