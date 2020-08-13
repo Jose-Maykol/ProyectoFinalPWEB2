@@ -1,5 +1,5 @@
 {%load static %}
-
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +19,7 @@
                     <h1 class="login-title">Inicia sesión</h1>
                     <form  method="post">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        {{ form|crispy }}
                         <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Ingresar">
                     </form>
                     <p class="login-wrapper-footer-text">¿No tienes una cuenta ? <a href="SignUp" class="text-reset">Registrate aqui</a></p>
