@@ -1,0 +1,90 @@
+{%load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        .table, td, th {  
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        text-align: left;
+        }
+
+        .table {
+        border-collapse: collapse;
+        width: 100%;
+
+        }
+
+        .table th, td {
+        padding: 5px;
+        text-align: center;
+        }
+
+        .td{
+        word-break: inherit;
+        }
+
+        .list-group h3{
+            font-size: 3em;
+        }
+        .list-group p {
+            font-size: 1em;
+        }
+
+        .table1 {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 5px;
+            background-color: #fff;
+            border: none;
+            text-align: center;
+        }
+
+        .table1 td {
+            border: none;
+        }
+    </style>
+    <title>Inventario</title>
+</head>
+<body>
+    <div id="header_content">
+        <h4> Usuario: {{request.user.last_name}}, {{request.user.first_name}} </h4>
+        <h4> Reporte de inventario - {{ today | date:"d/m/Y" }}</h4>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Almacen</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Presentacion</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Linea</th>
+            <th scope="col">Dia de entrada</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for i in inventory%}
+          <tr>
+            <td>{{i.store}}</td>
+            <td>{{i.name_product}}</td>
+            <td>{{i.price_product}}</td>
+            <td>{{i.cant}}</td>
+            <td>{{i.presentation}}</td>
+            <td>{{i.providers}}</td>
+            <td>{{i.line}}</td>
+            <td>{{i.entry_date}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

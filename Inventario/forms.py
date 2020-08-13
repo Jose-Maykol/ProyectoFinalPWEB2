@@ -1,5 +1,5 @@
 from django import forms
-from .models import Provider, Product, Entry, Sale, Inventory, Client, Store
+from .models import Provider, Product, Entry, Sale, Inventory, Client, Store, Line
 
 #create your forms
 class StoreForm(forms.ModelForm):
@@ -79,4 +79,12 @@ class InventoryForm(forms.ModelForm):
 				'price_product',
 				'providers',
 				'line',
+		]
+
+class LineForm(forms.ModelForm):
+
+	class Meta:
+		model = Line
+		fields = [
+				'line_name',
 		]

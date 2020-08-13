@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from .forms import ProviderForm, ProductForm, EntryForm, SaleForm, InventoryForm, ClientForm, StoreForm
-from .models import Provider, Product, Entry, Sale, Inventory, Client, Store
+from .forms import ProviderForm, ProductForm, EntryForm, SaleForm, InventoryForm, ClientForm, StoreForm, LineForm
+from .models import Provider, Product, Entry, Sale, Inventory, Client, Store, Line
 from django.contrib.auth.models import User
 from accounts.views import login
-
+from django.views import View
+from django.utils import timezone
+from .render import Render
 # Create your views here.
 
 def home(request):
@@ -176,6 +178,38 @@ def addInventory(request):
             return redirect('home')
     return render(request, "", {'form' : form})
 
+def addLine(request):
+    form = LineForm()
+    if request.method == 'POST':
+        form = LineForm(request.POST)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+            return redirect('home')
+    return render(request, "addLine.html", {'form' : form})
+
+def listLine(request):
+    context = {
+        'lineas' : Line.objects.all(),
+        }
+    return render(request, "listLine.html", context)
+
+def editLine(request, line_id):
+    instancia = Line.objects.get(id = line_id)
+    form = LineForm(instance = instancia)
+    if request.method == "POST":
+        form = LineForm(request.POST, instance = instancia)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+        return redirect("listLine")
+    return render(request, "editClient.html", {'form' : form})
+
+def deleteLine(request, line_id):
+    instancia = Line.objects.get(id = line_id)
+    instancia.delete()
+    return redirect('home')
+
 def company(request):
     return render(request,'company.html')
 
@@ -204,3 +238,15 @@ def sales(request):
 def inventory(request):
     inventory = Inventory.objects.all()
     return render(request,'inventory.html',{'inventory':inventory})
+
+class Pdf_inventory(View):
+
+    def get(self, request):
+        inventory = Inventory.objects.all()
+        today = timezone.now()
+        params = {
+                'today': today,
+                'inventory': inventory,
+                'request': request
+            }
+        return Render.render('pdf_inventory.html',params)

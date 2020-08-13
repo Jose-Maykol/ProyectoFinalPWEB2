@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 <!-- 
-* entradas
+* lineas
 -->
-{% block title %}Añadir entrada{% endblock %}
+{% block title %}Añadir linea{% endblock %}
 
 <!-- pageContent -->
 {% block content %}
@@ -14,7 +14,7 @@
 			</div>
 			<div class="full-width header-well-text">
 				<p class="text-condensedLight">
-					ENTRADAS
+					LINEAS
 				</p>
 			</div>
 		</section>
@@ -27,17 +27,17 @@
 					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 						<div class="full-width panel mdl-shadow--2dp">
 							<div class="full-width panel-tittle bg-success text-center tittles">
-								Nueva entrada
+								Nueva linea
 							</div>
 							<div class="full-width panel-content">
 								<form method="POST" enctype="multipart/form-data">
 									{% csrf_token %}
 									{{ form.as_p }}
 									<p class="text-center">
-										<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-success" id="btn-addProduct">
+										<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-success" id="btn-addLine">
 											<i class="zmdi zmdi-plus"></i>
 										</button>
-										<div class="mdl-tooltip" for="btn-addProduct">Añadir entrada</div>
+										<div class="mdl-tooltip" for="btn-addProduct">Añadir linea</div>
 									</p>
 								</form>
 							</div>

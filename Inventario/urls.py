@@ -31,6 +31,11 @@ urlpatterns = [
     path('addSale', views.addSale, name = 'addSale'),
     path('addInventory', views.addInventory, name = 'addInventory'),
 
+    path('listLine', views.listLine, name ='listLine'),
+    path('addLine', views.addLine, name = 'addLine'),
+    path('editLine/<int:Line_id>', views.editLine, name = 'editLine'),
+    path('deleteLine/<int:Line_id>', views.deleteLine, name ='deleteLine'),
+
     path('categories', views.categories, name = 'categories'),
     path('products', views.products, name = 'products'),
     path('company', views.company, name = 'company'),
@@ -40,5 +45,7 @@ urlpatterns = [
     path('administrator', views.admin, name = 'administrator'),
     path('sales', views.sales, name = 'sales'),
     path('inventory', views.inventory, name = 'inventory'),
+
+    path('render/pdf/' , views.Pdf_inventory.as_view(), name= 'render/pdf/'),
 ]
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
