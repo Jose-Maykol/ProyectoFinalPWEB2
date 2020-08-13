@@ -64,7 +64,6 @@ class SaleForm(forms.ModelForm):
 				'product',
 				'store',
 				'cant',
-				'total_price',
 		]
 
 class InventoryForm(forms.ModelForm):

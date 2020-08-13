@@ -27,14 +27,23 @@ urlpatterns = [
     path('editProduct/<int:product_id>', views.editProduct, name = 'editProduct'),
     path('deleteProduct/<int:product_id>', views.deleteProduct, name ='deleteProduct'),
 
-    path('addEntry', views.addEntry, name = 'addEntry'),
     path('addSale', views.addSale, name = 'addSale'),
+    path('listSale', views.listSale, name ='listSale'),
+    path('editSale/<int:sale_id>', views.editSale, name = 'editSale'),
+    path('deleteSale/<int:sale_id>', views.deleteSale, name ='deleteSale'),
+
+
     path('addInventory', views.addInventory, name = 'addInventory'),
 
     path('listLine', views.listLine, name ='listLine'),
     path('addLine', views.addLine, name = 'addLine'),
-    path('editLine/<int:Line_id>', views.editLine, name = 'editLine'),
-    path('deleteLine/<int:Line_id>', views.deleteLine, name ='deleteLine'),
+    path('editLine/<int:line_id>', views.editLine, name = 'editLine'),
+    path('deleteLine/<int:line_id>', views.deleteLine, name ='deleteLine'),
+
+    path('listEntry', views.listEntry, name ='listEntry'),
+    path('addEntry', views.addEntry, name = 'addEntry'),
+    path('editEntry/<int:entry_id>', views.editEntry, name = 'editEntry'),
+    path('deleteEntry/<int:entry_id>', views.deleteEntry, name ='deleteEntry'),
 
     path('categories', views.categories, name = 'categories'),
     path('products', views.products, name = 'products'),

@@ -6,6 +6,7 @@
 {% block title %}Añadir salida{% endblock %}
 
 <!-- pageContent -->
+{% load crispy_forms_tags %}
 {% block content %}
 	<section class="full-width pageContent">
 		<section class="full-width header-well">
@@ -32,7 +33,7 @@
 							<div class="full-width panel-content">
 								<form method="POST" enctype="multipart/form-data">
 									{% csrf_token %}
-									{{ form.as_p }}
+									{{ form|crispy }}
 									<p class="text-center">
 										<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-success" id="btn-addProduct">
 											<i class="zmdi zmdi-plus"></i>

@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 <!-- 
-* editProduct
+* editEntry
 -->
-{% block title %}Editar producto{% endblock %}
+{% block title %}Editar entrada{% endblock %}
 
 <!-- pageContent -->
 {% load crispy_forms_tags %}
 {% block content %}
-<section class="full-width pageContent">
+	<section class="full-width pageContent">
 		<section class="full-width header-well">
 			<div class="full-width header-well-icon">
 				<i class="zmdi zmdi-washing-machine"></i>
 			</div>
 			<div class="full-width header-well-text">
 				<p class="text-condensedLight">
-					PRODUCTOS
+					ENTRADAS
 				</p>
 			</div>
 		</section>
@@ -28,20 +28,18 @@
 					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 						<div class="full-width panel mdl-shadow--2dp">
 							<div class="full-width panel-tittle bg-success text-center tittles">
-								Editar producto
+								Editar entrada
 							</div>
 							<div class="full-width panel-content">
 								<form method="POST" enctype="multipart/form-data">
-									 
+									<h5 class="text-condensedLight">Información de entrada</h5> 
 									{% csrf_token %}
 									{{ form|crispy }}
-									
-
 									<p class="text-center">
 										<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-success" id="btn-addProduct">
 											<i class="zmdi zmdi-check"></i>
 										</button>
-										<div class="mdl-tooltip" for="btn-addProduct">Editar producto</div>
+										<div class="mdl-tooltip" for="btn-addProduct">Editar entrada</div>
 									</p>
 								</form>
 							</div>
@@ -52,5 +50,4 @@
 
 		</div>
 	</section>
-
 {% endblock %}

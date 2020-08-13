@@ -5,6 +5,7 @@ EDIT PROVIDERS
 {% block title %}Editar proveedor{% endblock %}
 
 <!-- pageContent -->
+{% load crispy_forms_tags %}
 {% block content %}
 	<section class="full-width pageContent">
 		<section class="full-width header-well">
@@ -25,17 +26,17 @@ EDIT PROVIDERS
 				<div class="mdl-grid">
 					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 						<div class="full-width panel mdl-shadow--2dp">
-							<div class="full-width panel-tittle bg-primary text-center tittles">
+							<div class="full-width panel-tittle bg-success text-center tittles">
 								Editar proveedor
 							</div>
 							<div class="full-width panel-content">
 								<form method="POST" enctype="multipart/form-data">
 									<h5 class="text-condensedLight">Formulario</h5>
 									{% csrf_token %}
-									{{ form.as_p }}
+									{{ form|crispy }}
 									
 									<p class="text-center">
-										<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addProvider">
+										<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-success" id="btn-addProvider">
 											<i class="zmdi zmdi-check"></i>
 										</button>
 										<div class="mdl-tooltip" for="btn-addProvider">Editar proveedor</div>

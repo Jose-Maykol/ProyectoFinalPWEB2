@@ -158,6 +158,50 @@ def addEntry(request):
             return redirect('home')
     return render(request, "addEntry.html", {'form' : form})
 
+def listEntry(request):
+    context = {
+        'entradas' : Entry.objects.all(),
+        }
+    return render(request, "listEntry.html", context)
+
+def editEntry(request, entry_id):
+    instancia = Entry.objects.get(id = entry_id)
+    form = EntryForm(instance = instancia)
+    if request.method == "POST":
+        form = EntryForm(request.POST, instance = instancia)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+        return redirect("listLine")
+    return render(request, "editEntry.html", {'form' : form})
+
+def deleteEntry(request, entry_id):
+    instancia = Entry.objects.get(id = entry_id)
+    instancia.delete()
+    return redirect('home')
+
+def listSale(request):
+    context = {
+        'salidas' : Sale.objects.all(),
+        }
+    return render(request, "listSale.html", context)
+
+def editSale(request, sale_id):
+    instancia = Sale.objects.get(id = sale_id)
+    form = SaleForm(instance = instancia)
+    if request.method == "POST":
+        form = EntryForm(request.POST, instance = instancia)
+        if form.is_valid():
+            instancia = form.save(commit = False)
+            instancia.save()
+        return redirect("listLine")
+    return render(request, "editSale.html", {'form' : form})
+
+def deleteSale(request, entry_id):
+    instancia = Sale.objects.get(id = entry_id)
+    instancia.delete()
+    return redirect('home')
+
 def addSale(request):
     form = SaleForm()
     if request.method == 'POST':
@@ -203,12 +247,14 @@ def editLine(request, line_id):
             instancia = form.save(commit = False)
             instancia.save()
         return redirect("listLine")
-    return render(request, "editClient.html", {'form' : form})
+    return render(request, "editLine.html", {'form' : form})
 
 def deleteLine(request, line_id):
     instancia = Line.objects.get(id = line_id)
     instancia.delete()
     return redirect('home')
+
+
 
 def company(request):
     return render(request,'company.html')

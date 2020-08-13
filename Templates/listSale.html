@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 <!-- 
-* LISTAR CLIENTES
+* LISTAR ENTRADAS
 -->
-{% block title %}Listar lineas{% endblock %}
+{% block title %}Listar salidas{% endblock %}
 
 <!-- pageContent -->
+{% load test_tags %} 
 {% block content %}
 	<section class="full-width pageContent">
 		<section class="full-width header-well">
@@ -14,7 +15,7 @@
 			</div>
 			<div class="full-width header-well-text">
 				<p class="text-condensedLight">
-					LINEAS
+					SALIDAS
 				</p>
 			</div>
 		</section>
@@ -23,7 +24,7 @@
 					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
 						<div class="full-width panel mdl-shadow--2dp">
 							<div class="full-width panel-tittle bg-success text-center tittles">
-								Listar lineas
+								Listar salidas
 							</div>
 							<div class="full-width panel-content">
 								<form action="#">
@@ -38,14 +39,14 @@
 									</div>
 								</form>
 								<div class="mdl-list">
-									{% for linea in lineas %}
+									{% for salida in salidas %}
 									<div class="mdl-list__item mdl-list__item--two-line">
 										<span class="mdl-list__item-primary-content">
-                                            <i class="zmdi zmdi-label mdl-list__item-avatar"></i> <br>
-											<span>{{linea.line_name}}</span>
+											<i class="zmdi zmdi-account mdl-list__item-avatar"></i><br>
+											<span>{{salida | to_class_name  }}</span>
 										</span>
-										<a href="/editLine/{{linea.id}}" class="btn btn-success zmdi zmdi-edit" role="button"></a>
-										<a href="/deleteLine/{{linea.id}}" class="btn btn-danger zmdi zmdi-delete" role="button" onClick="return confirm('¿Seguro que quieres borrar a {{ linea.line_name }}?');"></a>
+										<a href="/editSale/{{salida.id}}" class="btn btn-success zmdi zmdi-edit" role="button"></a>
+										<a href="/deleteSale/{{salida.id}}" class="btn btn-danger zmdi zmdi-delete" role="button" onClick="return confirm('¿Seguro que quieres borrar a {{ salida | to_class_name }}?');"></a>
 									</div>
 									<li class="full-width divider-menu-h"></li>
 									{% endfor %}
