@@ -15,6 +15,10 @@ def home(request):
                 'numProdu' : Product.objects.count(),
                 'numAdmin' : User.objects.count(),
                 'numClient' : Client.objects.count(),
+                'numEntry' : Entry.objects.count(),
+                'numSale' : Sale.objects.count(),
+                'numStore' : Store.objects.count(),
+                'numLineas' : Line.objects.count(),
             }
         return render(request,'home.html', context)
     return redirect("index")
