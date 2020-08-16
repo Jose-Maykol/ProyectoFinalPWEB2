@@ -14,7 +14,6 @@ class Client(models.Model):
 
     def save(self):
         if self.id:
-            old = Line.objects.get(pk = self.id)
             sale = Sale.objects.filter(client = self)
             for s in sale:
                 s.client = self
@@ -42,7 +41,6 @@ class Line(models.Model):
 
     def save(self):
         if self.id:
-            old = Line.objects.get(pk = self.id)
             product = Product.objects.filter(line = old)
             for p in product:
                 p.line = self
@@ -61,7 +59,7 @@ class Provider(models.Model):
     def save(self):
         if self.id:
             old = Provider.objects.get(pk = self.id)
-            product = Product.objects.filter(line = old)
+            product = Product.objects.filter(providers = old)
             for p in product:
                 p.providers = self
                 p.save()
@@ -146,7 +144,7 @@ class Entry(models.Model):
     def save(self):
         if self.id:
             old = Entry.objects.get(pk = self.id)
-            i = Inventory.objects.get(name_product = old.product.name, store= str(old.store))
+            i = Inventory.objects.get(name_product = str(old.product.name), store= str(old.store))
             i.cant = i.cant - old.cant
             i.save()
         super(Entry, self).save()

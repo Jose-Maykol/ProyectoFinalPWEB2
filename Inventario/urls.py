@@ -14,8 +14,8 @@ urlpatterns = [
 
     path('listClient', views.listClient, name ='listClient'),
     path('addClient', views.addClient, name = 'addClient'),
-    path('editClient/<int:client_id>', views.editClient, name = 'editClient'),
-    path('deleteClient/<int:client_id>', views.deleteClient, name ='deleteClient'),
+    path('editClient/<int:cliente_id>', views.editClient, name = 'editClient'),
+    path('deleteClient/<int:cliente_id>', views.deleteClient, name ='deleteClient'),
     
     path('listProvider', views.listProvider, name ='listProvider'),
     path('addProvider', views.addProvider, name = 'addProvider'),
@@ -55,6 +55,7 @@ urlpatterns = [
     path('sales', views.sales, name = 'sales'),
     path('inventory', views.inventory, name = 'inventory'),
 
-    path('render/pdf/' , views.Pdf_inventory.as_view(), name= 'render/pdf/'),
+    path('render/pdf_inventory/' , views.Pdf_inventory.as_view(), name= 'render/pdf_inventory/'),
+    path('render/pdf_sales/' , views.Pdf_sales.as_view(), name= 'render/pdf_sales/'),
 ]
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

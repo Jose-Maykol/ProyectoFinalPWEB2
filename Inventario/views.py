@@ -194,15 +194,15 @@ def editSale(request, sale_id):
     instancia = Sale.objects.get(id = sale_id)
     form = SaleForm(instance = instancia)
     if request.method == "POST":
-        form = EntryForm(request.POST, instance = instancia)
+        form = SaleForm(request.POST, instance = instancia)
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
         return redirect("listLine")
     return render(request, "editSale.html", {'form' : form})
 
-def deleteSale(request, entry_id):
-    instancia = Sale.objects.get(id = entry_id)
+def deleteSale(request, sale_id):
+    instancia = Sale.objects.get(id = sale_id)
     instancia.delete()
     return redirect('home')
 
@@ -300,3 +300,15 @@ class Pdf_inventory(View):
                 'request': request
             }
         return Render.render('pdf_inventory.html',params)
+
+class Pdf_sales(View):
+
+    def get(self, request):
+        sales = Sales.objects.all()
+        today = timezone.now()
+        params = {
+                'today' : today,
+                'sales' : sales,
+                'request' : request,
+        }
+        return Render.render('pdf_sales.html', params)
