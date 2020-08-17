@@ -41,6 +41,7 @@ class Line(models.Model):
 
     def save(self):
         if self.id:
+            old = Line.objects.get(pk = self.id)
             product = Product.objects.filter(line = old)
             for p in product:
                 p.line = self

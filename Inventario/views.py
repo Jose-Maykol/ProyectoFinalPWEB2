@@ -10,6 +10,7 @@ from .render import Render
 
 def home(request):
     if request.user.is_authenticated:
+
         context = {
                 'numProvi' : Provider.objects.count(),
                 'numProdu' : Product.objects.count(),
@@ -30,7 +31,7 @@ def addStore(request):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
-            return redirect('home')
+            return redirect('listStore')
     return render(request, "addStore.html", {'form' : form})
 
 def editStore(request, store_id):
@@ -47,7 +48,7 @@ def editStore(request, store_id):
 def deleteStore(request, store_id):
     instancia = Store.objects.get(id = store_id)
     instancia.delete()
-    return redirect('home')
+    return redirect('listStore')
 
 def listStore(request):
     context = {
@@ -62,7 +63,7 @@ def addProvider(request):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
-            return redirect('home')
+            return redirect('listProvider')
     return render(request, "addProvider.html", {'form' : form})
 
 def editProvider(request, provider_id):
@@ -79,7 +80,7 @@ def editProvider(request, provider_id):
 def deleteProvider(request, provider_id):
     instancia = Provider.objects.get(id = provider_id)
     instancia.delete()
-    return redirect('home')
+    return redirect('listProvider')
 
 def listProvider(request):
     context = {
@@ -95,7 +96,7 @@ def addProduct(request):
             instancia = form.save(commit = False)
             instancia.save()
             message= "Image upload succesfully"
-            return redirect('home')
+            return redirect('listProduct')
     return render(request, "addProduct.html", {'form' : form})
 
 def editProduct(request, product_id):
@@ -112,7 +113,7 @@ def editProduct(request, product_id):
 def deleteProduct(request, product_id):
     instancia = Product.objects.get(id = product_id)
     instancia.delete()
-    return redirect('home')
+    return redirect('listProduct')
 
 def listProduct(request):
     context = {
@@ -127,7 +128,7 @@ def addClient(request):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
-            return redirect('home')
+            return redirect('listClient')
     return render(request, "addClient.html", {'form' : form})
 
 def editClient(request, client_id):
@@ -141,10 +142,10 @@ def editClient(request, client_id):
         return redirect("listClient")
     return render(request, "editClient.html", {'form' : form})
 
-def deleteClient(request, cliente_id):
-    instancia = Client.objects.get(id = cliente_id)
+def deleteClient(request, client_id):
+    instancia = Client.objects.get(id = client_id)
     instancia.delete()
-    return redirect('home')
+    return redirect('listClient')
 
 def listClient(request):
     context = {
@@ -159,12 +160,22 @@ def addEntry(request):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
-            return redirect('home')
+            return redirect('listEntry')
     return render(request, "addEntry.html", {'form' : form})
 
 def listEntry(request):
+    labels = []
+    data = []
+
+    queryset = Entry.objects.order_by('created_at')[:6]
+    for i in queryset:
+        labels.append(i.created_at.day)
+        data.append(i.cant)
+
     context = {
         'entradas' : Entry.objects.all(),
+        'labels' : labels,
+        'data' : data,
         }
     return render(request, "listEntry.html", context)
 
@@ -176,17 +187,27 @@ def editEntry(request, entry_id):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
-        return redirect("listLine")
+        return redirect("listEntry")
     return render(request, "editEntry.html", {'form' : form})
 
 def deleteEntry(request, entry_id):
     instancia = Entry.objects.get(id = entry_id)
     instancia.delete()
-    return redirect('home')
+    return redirect('listEntry')
 
 def listSale(request):
+    labels = []
+    data = []
+
+    queryset = Sale.objects.order_by('created_at')[:6]
+    for i in queryset:
+        labels.append(i.created_at.day)
+        data.append(i.cant)
+
     context = {
         'salidas' : Sale.objects.all(),
+        'labels' : labels,
+        'data' : data,
         }
     return render(request, "listSale.html", context)
 
@@ -198,13 +219,13 @@ def editSale(request, sale_id):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
-        return redirect("listLine")
+        return redirect("listSale")
     return render(request, "editSale.html", {'form' : form})
 
 def deleteSale(request, sale_id):
     instancia = Sale.objects.get(id = sale_id)
     instancia.delete()
-    return redirect('home')
+    return redirect('listSale')
 
 def addSale(request):
     form = SaleForm()
@@ -213,7 +234,7 @@ def addSale(request):
         if form.is_valid():
             instancia = form.save(commit = False)
             instancia.save()
-            return redirect('home')
+            return redirect('listSale')
     return render(request, "addSale.html", {'form' : form})
 
 def addInventory(request):
@@ -256,7 +277,7 @@ def editLine(request, line_id):
 def deleteLine(request, line_id):
     instancia = Line.objects.get(id = line_id)
     instancia.delete()
-    return redirect('home')
+    return redirect('listLine')
 
 
 

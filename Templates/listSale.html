@@ -19,6 +19,42 @@
 				</p>
 			</div>
 		</section>
+		<div>
+			<div id="container" style="width: 75%;">
+			    <canvas id="line"></canvas>
+  			</div>
+  			<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  			<script>
+
+    		var config = {
+      			type : 'line',
+      			data : {
+      				labels : {{ labels|safe }},
+      				datasets : [{
+      					label : "Mis Entradas",
+      					fill : true,
+      					data : {{ data|safe }},
+      					borderColor : 'rgba(0, 99, 132, 0.6)',
+      					backgroundColor: 'transparent',
+      					pointBorderColor: 'orange',
+      					pointBorderWidth: 2,
+      					pointStyle: 'rectRounded',
+      					lineTension: 0,
+
+      				}]
+      			},
+      			options : {
+        			responsive: true
+      			}
+    		};
+
+   			window.onload = function() {
+      			var ctx = document.getElementById('line').getContext('2d');
+      			window.myPie = new Chart(ctx, config);
+    		};
+
+  			</script>
+		</div>
 		<div class="mdl-tabs__panel" id="tabListClient">
 				<div class="mdl-grid">
 					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
